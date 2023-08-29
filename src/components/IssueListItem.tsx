@@ -5,7 +5,7 @@ interface Props {
   issue: IssueItem;
 }
 
-export const Issue = ({ issue }: Props) => {
+export const IssueListItem = ({ issue }: Props) => {
   const { number, title, comments, author, created_at } = issue;
 
   return (
@@ -16,7 +16,7 @@ export const Issue = ({ issue }: Props) => {
           <p>{title}</p>
         </div>
         <div>
-          <span>작성자 : {author},</span>
+          <span>작성자 : {author.name},</span>
           <span>작성일 : {created_at}</span>
         </div>
       </div>
@@ -29,4 +29,5 @@ export const Issue = ({ issue }: Props) => {
 
 const ItemContainer = styled.div`
   display: flex;
+  padding: 16px;
 `;
