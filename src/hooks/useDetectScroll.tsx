@@ -18,5 +18,5 @@ export const useDetectScroll = () => {
     return () => window.removeEventListener('scroll', detectIsEnd);
   }, []);
 
-  return { isEnd };
+  return { isEnd, setIsEnd };
 };
