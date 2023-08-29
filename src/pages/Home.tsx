@@ -5,5 +5,9 @@ export const Home = () => {
   useEffect(() => {
     getIssues();
   }, []);
-  return <div></div>;
+  return (
+    <div>
+      <p>home</p>
+    </div>
+  );
 };
