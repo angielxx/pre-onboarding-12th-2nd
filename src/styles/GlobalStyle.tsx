@@ -18,6 +18,13 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Pretendard-Regular', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: ${({ theme }) => theme.color.bg};
+    color: ${({ theme }) => theme.color.fontPrimary};
   }
 `;
 
