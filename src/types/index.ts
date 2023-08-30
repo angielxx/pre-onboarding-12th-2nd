@@ -23,6 +23,7 @@ export interface IssueItem {
   id: number;
   number: number;
   title: string;
+  body: string;
   comments: number;
   author: User;
   created_at: string;

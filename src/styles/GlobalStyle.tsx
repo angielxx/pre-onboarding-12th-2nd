@@ -2,10 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 import reset from 'styled-reset';
 import font from './font';
+import markdown from './markdown';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
   ${font}
+  ${markdown}
 
   body {
     font-family: 'Pretendard', 'Arial Narrow', Arial, sans-serif;

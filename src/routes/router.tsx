@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Home, Issue, Root } from '@/pages';
+import { issueLoader } from '@/utils/loader';
+
 const router = createBrowserRouter([
   {
     element: <Root />,
@@ -12,9 +14,7 @@ const router = createBrowserRouter([
       {
         path: 'issues/:id',
         element: <Issue />,
-        // loader: ({ params }) => {
-        //   return getIssues();
-        // },
+        loader: ({ params }) => issueLoader(Number(params.id)),
       },
     ],
   },
