@@ -1,6 +1,4 @@
-interface Props {}
-
-export const Issue = (props: Props) => {
+export const Issue = () => {
   return (
     <div>
       <p>issue</p>

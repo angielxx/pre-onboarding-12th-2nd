@@ -12,8 +12,13 @@ export const Root = () => {
 };
 
 const RootContainer = styled.div`
-  width: 300px;
-  height: 400px;
+  width: 100vw;
+  height: 100vh;
+  /* overflow: scroll; */
+  /* overflow-x: hidden; */
   background-color: ${({ theme }) => theme.color.bg};
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

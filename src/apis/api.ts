@@ -1,7 +1,10 @@
 import { octokit } from './config';
 
-export const getIssues = async () => {
-  const response = await octokit.request('GET /repos/{owner}/{repo}/issues', {
+// List repository issues
+export const getIssuesPerPage = async (page?: number) => {
+  if (!page) page = 1;
+
+  const { data } = await octokit.request('GET /repos/{owner}/{repo}/issues', {
     owner: 'facebook',
     repo: 'react',
     headers: {
@@ -9,7 +12,25 @@ export const getIssues = async () => {
     },
     state: 'open',
     sort: 'comments',
+    per_page: 10,
+    page: page,
   });
-  console.log(response);
+
+  return data;
+};
+
+// Get an issue
+export const getIssueById = async (id: number) => {
+  const response = await octokit.request(
+    'GET /repos/{owner}/{repo}/issues/{issue_number}',
+    {
+      owner: 'OWNER',
+      repo: 'REPO',
+      issue_number: id,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    }
+  );
   return response;
 };
