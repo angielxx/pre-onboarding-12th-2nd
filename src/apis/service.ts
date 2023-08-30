@@ -4,7 +4,7 @@ import parseTimeStamp from '@/utils/parseTimeStamp';
 export const refineIssuesList = (issues) => {
   return issues.map((issue) => {
     const { id, number, title, comments, user, created_at: timestamp } = issue;
-    const author = user.login;
+    const author = { name: user.login, avatar: user.avatar_url };
     const created_at = parseTimeStamp(timestamp);
 
     return {

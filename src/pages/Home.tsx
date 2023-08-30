@@ -1,30 +1,45 @@
 import { IssueListItem } from '@/components/IssueListItem';
 import { Loader } from '@/components/Loader';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { styled } from 'styled-components';
 
 export const Home = () => {
-  const {
-    data: pages,
-    isLoading,
-    isError,
-    fetchNextPage,
-  } = useInfiniteScroll();
+  const { data: pages, isLoading, isError } = useInfiniteScroll();
 
-  useEffect(() => {
-    console.log(pages);
-  }, []);
+  const navigation = useNavigate();
 
   return (
-    <div>
+    <IssueList>
       {pages?.map(({ page, data }) => (
-        <div key={page}>
+        <PageWrapper key={page}>
           {data.map((issue) => (
-            <IssueListItem key={issue.id} issue={issue} />
+            <ItemWrapper
+              key={issue.id}
+              onClick={() => navigation(`/issues/${issue.id}`)}
+            >
+              <IssueListItem issue={issue} />
+            </ItemWrapper>
           ))}
-        </div>
+        </PageWrapper>
       ))}
       {isLoading && <Loader />}
-    </div>
+    </IssueList>
   );
 };
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const ItemWrapper = styled.div`
+  cursor: pointer;
+`;
+
+const IssueList = styled.div`
+  min-width: 300px;
+  max-width: 700px;
+  padding: 16px;
+`;
