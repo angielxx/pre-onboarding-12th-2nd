@@ -19,13 +19,19 @@
     "octokit": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "recoil": "^0.7.7",
+    "rehype-stringify": "^10.0.0",
+    "remark-parse": "^10.0.2",
+    "remark-rehype": "^10.1.0",
     "styled-components": "^6.0.7",
-    "styled-reset": "^4.5.1"
+    "styled-reset": "^4.5.1",
+    "unified": "^11.0.2"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

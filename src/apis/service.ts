@@ -1,4 +1,3 @@
-import { RawIssue } from '@/types';
 import parseTimeStamp from '@/utils/parseTimeStamp';
 
 export const refineIssuesList = (issues) => {
@@ -18,7 +17,7 @@ export const refineIssuesList = (issues) => {
   });
 };
 
-export const refineIssue = (issue: RawIssue) => {
+export const refineIssue = (issue) => {
   const {
     id,
     number,

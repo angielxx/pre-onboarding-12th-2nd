@@ -21,16 +21,16 @@ export const getIssuesPerPage = async (page?: number) => {
 
 // Get an issue
 export const getIssueById = async (id: number) => {
-  const response = await octokit.request(
+  const { data } = await octokit.request(
     'GET /repos/{owner}/{repo}/issues/{issue_number}',
     {
-      owner: 'OWNER',
-      repo: 'REPO',
+      owner: 'facebook',
+      repo: 'react',
       issue_number: id,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
       },
     }
   );
-  return response;
+  return data;
 };
