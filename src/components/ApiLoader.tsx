@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
 
-export const Loader = () => {
+export const ApiLoader = () => {
   return (
     <Container>
-      <p>loading...</p>
+      <p>Loading...</p>
     </Container>
   );
 };

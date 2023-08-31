@@ -10,9 +10,11 @@ export const useInfiniteScroll = () => {
   const [pages, setPages] = useRecoilState(issueState);
 
   const [isLoading, setIsLoading] = useState(false);
+
   const [isError, setIsError] = useState(false);
 
   const pageNumber = useRef<number>(1);
+
   const { isEnd, setIsEnd } = useDetectScroll();
 
   const fetchPage = async (page: number) => {
@@ -53,5 +55,5 @@ export const useInfiniteScroll = () => {
     }
   }, [isEnd]);
 
-  return { data: pages, isLoading, isError, fetchNextPage };
+  return { data: pages, isLoading, isError };
 };
