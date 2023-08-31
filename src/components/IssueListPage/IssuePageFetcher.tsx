@@ -1,19 +1,23 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 import { useContextNullCheck } from '@/hooks/useContextNullCheck';
 import { ApiLoader } from '../ApiLoader';
 
 interface Props {
   children: ReactNode;
+  page: number;
 }
 
-export const IssuePageFetcher = ({ children }: Props) => {
+export const IssuePageFetcher = ({ children, page }: Props) => {
   const { state, dispatch } = useContextNullCheck();
-  const { data, isLoading, error } = state;
+  // const { isLoading, error } = state;
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { fetchCurrentPage } = dispatch;
 
   useEffect(() => {
-    fetchCurrentPage();
+    fetchCurrentPage(page);
+    console.log('fetcher');
   }, []);
 
   if (error) {

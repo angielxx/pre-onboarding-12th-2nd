@@ -1,6 +1,5 @@
 import { useContextNullCheck } from '@/hooks/useContextNullCheck';
 import { IssueListItem } from './IssueListItem';
-import { useEffect } from 'react';
 import { styled } from 'styled-components';
 
 interface Props {
@@ -27,7 +26,6 @@ export const IssueList = ({ page }: Props) => {
 const ListContainer = styled.div`
   min-width: 300px;
   max-width: 700px;
-  margin: 16px;
   display: flex;
   flex-direction: column;
 

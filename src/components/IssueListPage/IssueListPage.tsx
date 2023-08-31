@@ -12,7 +12,7 @@ export const IssueListPage = ({ page }: Props) => {
     <ApiErrorBoundary
       fallback={({ error, reset }) => <ApiError error={error} />}
     >
-      <IssuePageFetcher>
+      <IssuePageFetcher page={page}>
         <IssueList page={page} />
       </IssuePageFetcher>
     </ApiErrorBoundary>

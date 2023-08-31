@@ -1,4 +1,5 @@
 import { IssueItem } from '@/types';
+import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 
 interface Props {
@@ -8,8 +9,10 @@ interface Props {
 export const IssueListItem = ({ issue }: Props) => {
   const { number, title, comments, author, created_at } = issue;
 
+  const navigate = useNavigate();
+
   return (
-    <ItemContainer>
+    <ItemContainer onClick={() => navigate(`/issues/${issue.number}`)}>
       <MainContainer>
         <div style={{ flex: 1 }}>
           <p>#{number}</p>
