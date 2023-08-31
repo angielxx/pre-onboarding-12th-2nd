@@ -1,7 +1,7 @@
 import { getIssuesPerPage } from '@/apis/api';
 import { refineIssuesList } from '@/apis/service';
 import { IssueItem } from '@/types';
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface PageType {
   page: number;
@@ -45,6 +45,7 @@ export const IssueListProvider = ({ children }: { children: ReactNode }) => {
 
       setData((prev) => [...prev, { page: page, data: newPage }]);
       setPage((prev) => prev + 1);
+      setIsLoading(false);
       return;
     } catch (err) {
       setError(err);

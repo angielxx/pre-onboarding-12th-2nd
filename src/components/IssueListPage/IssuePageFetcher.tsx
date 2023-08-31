@@ -9,7 +9,7 @@ interface Props {
 
 export const IssuePageFetcher = ({ children }: Props) => {
   const { state, dispatch } = useContextNullCheck();
-  const { isLoading, error } = state;
+  const { data, isLoading, error } = state;
   const { fetchCurrentPage } = dispatch;
 
   useEffect(() => {

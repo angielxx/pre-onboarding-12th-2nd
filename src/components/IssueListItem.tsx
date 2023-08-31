@@ -31,9 +31,15 @@ const ItemContainer = styled.div`
   display: flex;
   gap: 8px;
   justify-content: space-between;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   box-sizing: border-box;
   width: 100%;
+  cursor: pointer;
+  padding: 16px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.grey800};
+  }
 
   p {
     font-size: 16px;

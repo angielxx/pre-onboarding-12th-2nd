@@ -50,6 +50,7 @@ class ApiErrorBoundary extends Component<Props, State> {
 
     // 폴백 UI
     if (error !== null) {
+      console.log(error);
       return fallback({ error, reset: this.resetErrorBoundary });
     }
     return children;
