@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { styled } from 'styled-components';
 import ReactMarkdown from 'react-markdown';
@@ -10,7 +9,7 @@ export const Issue = () => {
   const issue = useLoaderData() as IssueItem;
 
   if (!issue) return;
-  const { author } = issue;
+  const { author, body } = issue;
 
   return (
     <PageWrapper id="page wrapper">
@@ -19,9 +18,11 @@ export const Issue = () => {
         <IssueListItem issue={issue} />
       </HeaderContainer>
       <article>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} className="markdown-body">
-          {issue.body}
-        </ReactMarkdown>
+        {body && (
+          <ReactMarkdown remarkPlugins={[remarkGfm]} className="markdown-body">
+            {body}
+          </ReactMarkdown>
+        )}
       </article>
     </PageWrapper>
   );
