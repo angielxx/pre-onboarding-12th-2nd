@@ -35,9 +35,10 @@
 
 ---
 
-## 🎬 데모 영상
+## 🎬 데모 영상 (배포)
 
-링크로 대체
+- 링크로 대체합니다.
+  https://pre-onboarding-12th-2nd.vercel.app/
 
 ---
 
