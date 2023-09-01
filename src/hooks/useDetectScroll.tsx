@@ -9,7 +9,7 @@ export const useDetectScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight && !isEnd) {
       setIsEnd(true);
     }
   };

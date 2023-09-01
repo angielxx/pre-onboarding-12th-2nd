@@ -18,9 +18,13 @@ export const Home = () => {
 
   useEffect(() => {
     if (isEnd) {
-      setPageList((prev) => [...prev, prev[prev.length - 1] + 1]);
-      addPage();
       if (!prevPageIsLoading && !prevPageError && hasNextPage) {
+        console.log('스크롤 end');
+        setPageList((prev) => [...prev, prev[prev.length - 1] + 1]);
+        addPage();
+        console.log('페이지추가', pageList);
+        setIsEnd(false);
+      } else {
         setIsEnd(false);
       }
     }
