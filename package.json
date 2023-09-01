@@ -13,7 +13,6 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
-    "axios": "^1.5.0",
     "dotenv": "^16.3.1",
     "octokit": "^3.1.0",
     "react": "^18.2.0",
@@ -26,8 +25,7 @@
     "remark-rehype": "^10.1.0",
     "styled-components": "^6.0.7",
     "styled-reset": "^4.5.1",
-    "unified": "^11.0.2",
-    "zustand": "^4.4.1"
+    "unified": "^11.0.2"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",

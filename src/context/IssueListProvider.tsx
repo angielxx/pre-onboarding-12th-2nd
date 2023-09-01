@@ -43,10 +43,6 @@ export const IssueListProvider = ({ children }: { children: ReactNode }) => {
     setPrevPageError,
   };
 
-  useEffect(() => {
-    console.log('data', issueList);
-  }, [issueList]);
-
   function setPrevPageIsLoading(value: boolean) {
     setIsLoading(value);
   }
