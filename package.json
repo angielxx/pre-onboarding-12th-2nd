@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -12,18 +12,23 @@
   "dependencies": {
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
-    "@types/recoil": "^0.0.9",
     "@types/styled-components": "^5.1.26",
-    "axios": "^1.5.0",
+    "dotenv": "^16.3.1",
+    "octokit": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
-    "recoil": "^0.7.7",
+    "rehype-stringify": "^10.0.0",
+    "remark-parse": "^10.0.2",
+    "remark-rehype": "^10.1.0",
     "styled-components": "^6.0.7",
-    "styled-reset": "^4.5.1"
+    "styled-reset": "^4.5.1",
+    "unified": "^11.0.2"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
