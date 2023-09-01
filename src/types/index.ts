@@ -19,15 +19,15 @@ export interface RawIssue {
 }
 
 export interface User {
-  name: string;
-  avatar: string;
+  name: string | undefined;
+  avatar: string | undefined;
 }
 
 export interface IssueItem {
   id: number;
   number: number;
   title: string;
-  body: string;
+  body: string | null | undefined;
   comments: number;
   author: User;
   created_at: string;

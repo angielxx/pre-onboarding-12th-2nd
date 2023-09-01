@@ -1,7 +1,7 @@
 import { getIssuesPerPage } from '@/apis/api';
 import { refineIssuesList } from '@/apis/service';
 import { IssueItem } from '@/types';
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useState } from 'react';
 
 interface PageType {
   page: number;

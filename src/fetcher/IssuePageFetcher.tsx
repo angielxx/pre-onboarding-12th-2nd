@@ -19,15 +19,19 @@ export const IssuePageFetcher = ({ children, page }: Props) => {
 
   const [thisPageIsLoading, setThisPageIsLoading] = useState<boolean>(false);
   const [thisPageError, setThisPageError] = useState<Error | null>(null);
-  const { fetchIssueByPage, setPrevPageIsLoading, setPrevPageError } = dispatch;
+  const { fetchIssueByPage, setPrevPageError } = dispatch;
 
   const fetchThisPage = async () => {
     try {
       setThisPageIsLoading(true);
       await fetchIssueByPage(page);
     } catch (err) {
-      setThisPageError(err);
-      setPrevPageError(err);
+      if (err instanceof Error) {
+        setThisPageError(err);
+        setPrevPageError(err);
+      } else {
+        throw Error('unexpected error');
+      }
     } finally {
       setThisPageIsLoading(false);
     }
