@@ -9,13 +9,18 @@ interface PageType {
 }
 
 interface StateType {
-  data: PageType[];
+  issueList: PageType[];
   page: number;
+  hasNextPage: boolean;
+  isLoading: boolean;
+  error: Error | null;
 }
 
 interface DispatchType {
-  fetchCurrentPage: (page: number) => void;
+  fetchIssueByPage: (page: number) => void;
   addPage: () => void;
+  setPrevPageIsLoading: (value: boolean) => void;
+  setPrevPageError: (error: Error) => void;
 }
 
 export const IssueListStateContext = createContext<StateType | null>(null);
@@ -24,33 +29,54 @@ export const IssueListDispatchContext = createContext<DispatchType | null>(
 );
 
 export const IssueListProvider = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<PageType[]>([]);
+  const [issueList, setIssueList] = useState<PageType[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const state = { data, page };
-  const dispatch = { fetchCurrentPage, addPage };
+  const state = { issueList, page, hasNextPage, isLoading, error };
+  const dispatch = {
+    fetchIssueByPage,
+    addPage,
+    setPrevPageIsLoading,
+    setPrevPageError,
+  };
 
   useEffect(() => {
-    console.log('data', data);
-  }, [data]);
+    console.log('data', issueList);
+  }, [issueList]);
+
+  function setPrevPageIsLoading(value: boolean) {
+    setIsLoading(value);
+  }
+
+  function setPrevPageError(error: Error) {
+    setError(error);
+  }
 
   function addPage() {
     setPage((prev) => prev + 1);
   }
 
-  async function fetchCurrentPage(pageNum: number) {
-    const response = await getIssuesPerPage(pageNum);
-    const newPage = refineIssuesList(response);
+  async function fetchIssueByPage(pageNum: number) {
+    try {
+      const data = await getIssuesPerPage(pageNum);
+      const newPage = refineIssuesList(data);
 
-    setData((prev) => {
-      if (!prev.some((item) => item.page === pageNum)) {
-        return [...prev, { page: pageNum, data: newPage }];
-      } else {
-        return prev;
-      }
-    });
+      setIssueList((prev) => {
+        if (!prev.some((item) => item.page === pageNum)) {
+          return [...prev, { page: pageNum, data: newPage }];
+        } else {
+          return prev;
+        }
+      });
+      setHasNextPage(!!data.length);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (

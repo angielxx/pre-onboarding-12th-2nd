@@ -11,17 +11,26 @@ interface Props {
 export const IssuePageFetcher = ({ children, page }: Props) => {
   const { state, dispatch } = useContextNullCheck();
 
-  const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
-  const { fetchCurrentPage } = dispatch;
+  const {
+    hasNextPage,
+    isLoading: prevPageIsLoading,
+    error: prevPageError,
+  } = state;
+
+  const [thisPageIsLoading, setThisPageIsLoading] = useState<boolean>(false);
+  const [thisPageError, setThisPageError] = useState<Error | null>(null);
+  const { fetchIssueByPage, setPrevPageIsLoading, setPrevPageError } = dispatch;
 
   const fetchThisPage = async () => {
     try {
-      setIsLoadingPage(true);
-      await fetchCurrentPage(page);
-      setIsLoadingPage(false);
+      setThisPageIsLoading(true);
+      setPrevPageIsLoading(true);
+      await fetchIssueByPage(page);
     } catch (err) {
-      setError(err);
+      setThisPageError(err);
+    } finally {
+      setThisPageIsLoading(false);
+      setPrevPageIsLoading(false);
     }
   };
 
@@ -30,14 +39,16 @@ export const IssuePageFetcher = ({ children, page }: Props) => {
   }, []);
 
   if (page === 3) {
+    setThisPageError(Error('에러지롱'));
+    setPrevPageError(Error('에러지롱'));
     throw Error('에러지롱');
   }
 
-  if (error) {
-    throw Error(error.message);
+  if (thisPageError) {
+    throw Error(thisPageError.message);
   }
 
-  if (isLoadingPage) {
+  if (thisPageIsLoading) {
     return <ApiLoader />;
   }
 

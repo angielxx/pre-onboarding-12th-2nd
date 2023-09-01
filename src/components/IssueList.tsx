@@ -1,6 +1,7 @@
 import { useContextNullCheck } from '@/hooks/useContextNullCheck';
 import { IssueListItem } from './IssueListItem';
 import { styled } from 'styled-components';
+import { WantedAdItem } from './WantedAdItem';
 
 interface Props {
   page: number;
@@ -8,16 +9,19 @@ interface Props {
 
 export const IssueList = ({ page }: Props) => {
   const { state, dispatch } = useContextNullCheck();
-  const { data } = state;
+  const { issueList } = state;
 
-  if (!data || data.length < page) {
+  if (!issueList || issueList.length < page) {
     return null;
   }
 
   return (
     <ListContainer>
-      {data[page - 1]?.data.map((issue) => (
-        <IssueListItem key={issue.id} issue={issue} />
+      {issueList[page - 1]?.data.map((issue, idx) => (
+        <>
+          <IssueListItem key={issue.id} issue={issue} />
+          {idx % 4 == 3 && <WantedAdItem />}
+        </>
       ))}
     </ListContainer>
   );

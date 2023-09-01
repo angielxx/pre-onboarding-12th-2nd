@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 import { getIssuesPerPage } from '@/apis/api';
 import { refineIssuesList } from '@/apis/service';
-import issueState from '@/stores/issueState';
 import { useDetectScroll } from './useDetectScroll';
 
 export const useInfiniteScroll = () => {
-  const [pages, setPages] = useRecoilState(issueState);
-
   const [isLoading, setIsLoading] = useState(false);
 
   const [isError, setIsError] = useState(false);
