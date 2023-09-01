@@ -1,41 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { styled } from 'styled-components';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype/lib';
-import rehypeStringify from 'rehype-stringify';
 import ReactMarkdown from 'react-markdown';
 import { IssueItem } from '@/types';
 import { IssueListItem } from '@/components/IssueListItem';
+import remarkGfm from 'remark-gfm';
 
 export const Issue = () => {
   const issue = useLoaderData() as IssueItem;
 
-  const [content, setContent] = useState();
-
-  const processor = async () => {
-    const { value } = await unified()
-      .use(remarkParse)
-      .use(remarkRehype)
-      .use(rehypeStringify)
-      .process(issue.body);
-
-    setContent(value);
-  };
-
-  useEffect(() => {
-    processor();
-  }, []);
+  if (!issue) return;
+  const { author } = issue;
 
   return (
     <PageWrapper id="page wrapper">
       <HeaderContainer>
-        <Avatar img={issue.author.avatar} />
+        <Avatar img={author.avatar} />
         <IssueListItem issue={issue} />
       </HeaderContainer>
       <article>
-        <ReactMarkdown children={issue.body} className="markdown-body" />
+        <ReactMarkdown remarkPlugins={[remarkGfm]} className="markdown-body">
+          {issue.body}
+        </ReactMarkdown>
       </article>
     </PageWrapper>
   );
@@ -63,7 +49,7 @@ const HeaderContainer = styled.div`
   border-color: ${({ theme }) => theme.color.grey600};
 `;
 
-const Avatar = styled.div<{ img: string }>`
+const Avatar = styled.div<{ img?: string }>`
   width: 48px;
   height: 48px;
   border-radius: 99px;
