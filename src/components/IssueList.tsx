@@ -2,6 +2,7 @@ import { useContextNullCheck } from '@/hooks/useContextNullCheck';
 import { IssueListItem } from './IssueListItem';
 import { styled } from 'styled-components';
 import { WantedAdItem } from './WantedAdItem';
+import { Fragment } from 'react';
 
 interface Props {
   page: number;
@@ -18,10 +19,10 @@ export const IssueList = ({ page }: Props) => {
   return (
     <ListContainer>
       {issueList[page - 1]?.data.map((issue, idx) => (
-        <>
-          <IssueListItem key={issue.id} issue={issue} />
+        <Fragment key={issue.id}>
+          <IssueListItem issue={issue} />
           {idx % 4 == 3 && <WantedAdItem />}
-        </>
+        </Fragment>
       ))}
     </ListContainer>
   );

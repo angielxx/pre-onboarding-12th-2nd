@@ -16,9 +16,11 @@ export const Home = () => {
   } = state;
 
   useEffect(() => {
-    if (isEnd && hasNextPage && !prevPageIsLoading && !error) {
+    if (isEnd) {
       setPageList((prev) => [...prev, prev[prev.length - 1] + 1]);
-      setIsEnd(false);
+      if (!prevPageIsLoading && !prevPageError) {
+        setIsEnd(false);
+      }
     }
   }, [isEnd]);
 

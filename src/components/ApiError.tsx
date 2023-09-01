@@ -8,6 +8,7 @@ export const ApiError = ({ error }: Props) => {
   return (
     <Container>
       <p>{error.message}</p>
+      <button>새로고침</button>
     </Container>
   );
 };
@@ -15,7 +16,6 @@ export const ApiError = ({ error }: Props) => {
 const Container = styled.div`
   width: 100%;
   padding: 16px;
-  /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
