@@ -1,9 +1,10 @@
-import parseTimeStamp from '@/utils/parseTimeStamp';
+import { Issue } from '../types';
+import parseTimeStamp from '../utils/parseTimeStamp';
 
-export const refineIssuesList = (issues) => {
-  return issues.map((issue) => {
+export const refineIssuesList = (issues: Issue[]) => {
+  return issues.map((issue: Issue) => {
     const { id, number, title, comments, user, created_at: timestamp } = issue;
-    const author = { name: user.login, avatar: user.avatar_url };
+    const author = { name: user?.login, avatar: user?.avatar_url };
     const created_at = parseTimeStamp(timestamp);
 
     return {
@@ -17,7 +18,7 @@ export const refineIssuesList = (issues) => {
   });
 };
 
-export const refineIssue = (issue) => {
+export const refineIssue = (issue: Issue) => {
   const {
     id,
     number,
@@ -28,7 +29,7 @@ export const refineIssue = (issue) => {
     created_at: timestamp,
   } = issue;
 
-  const author = { name: user.login, avatar: user.avatar_url };
+  const author = { name: user?.login, avatar: user?.avatar_url };
   const created_at = parseTimeStamp(timestamp);
 
   return { id, number, title, body, author, comments, created_at };

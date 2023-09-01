@@ -1,3 +1,7 @@
+import { Endpoints } from '@octokit/types';
+
+export type Issue = Endpoints['GET /issues']['response']['data'][0];
+
 interface RawUser {
   id: number;
   login: string;
