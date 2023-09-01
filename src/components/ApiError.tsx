@@ -6,7 +6,9 @@ interface Props {
 }
 
 export const ApiError = ({ error, resetErrorBoundary }: Props) => {
-  const retry = () => {};
+  const retry = () => {
+    resetErrorBoundary();
+  };
 
   return (
     <Container>

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const IssueList = ({ page }: Props) => {
-  const { state, dispatch } = useContextNullCheck();
+  const { state } = useContextNullCheck();
   const { issueList } = state;
 
   if (!issueList || issueList.length < page) {
