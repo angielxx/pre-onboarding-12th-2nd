@@ -1,4 +1,5 @@
 import { IssueItem } from '@/types';
+import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 
 interface Props {
@@ -8,8 +9,10 @@ interface Props {
 export const IssueListItem = ({ issue }: Props) => {
   const { number, title, comments, author, created_at } = issue;
 
+  const navigate = useNavigate();
+
   return (
-    <ItemContainer>
+    <ItemContainer onClick={() => navigate(`/issues/${issue.number}`)}>
       <MainContainer>
         <div style={{ flex: 1 }}>
           <p>#{number}</p>
@@ -31,9 +34,15 @@ const ItemContainer = styled.div`
   display: flex;
   gap: 8px;
   justify-content: space-between;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   box-sizing: border-box;
   width: 100%;
+  cursor: pointer;
+  padding: 16px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.grey800};
+  }
 
   p {
     font-size: 16px;

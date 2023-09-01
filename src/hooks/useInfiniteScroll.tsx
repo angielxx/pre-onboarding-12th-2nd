@@ -1,18 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 import { getIssuesPerPage } from '@/apis/api';
 import { refineIssuesList } from '@/apis/service';
-import issueState from '@/stores/issueState';
 import { useDetectScroll } from './useDetectScroll';
 
 export const useInfiniteScroll = () => {
-  const [pages, setPages] = useRecoilState(issueState);
-
   const [isLoading, setIsLoading] = useState(false);
+
   const [isError, setIsError] = useState(false);
 
   const pageNumber = useRef<number>(1);
+
   const { isEnd, setIsEnd } = useDetectScroll();
 
   const fetchPage = async (page: number) => {
@@ -53,5 +51,5 @@ export const useInfiniteScroll = () => {
     }
   }, [isEnd]);
 
-  return { data: pages, isLoading, isError, fetchNextPage };
+  return { data: pages, isLoading, isError };
 };

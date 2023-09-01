@@ -12,7 +12,7 @@ export const getIssuesPerPage = async (page?: number) => {
     },
     state: 'open',
     sort: 'comments',
-    per_page: 10,
+    per_page: 12,
     page: page,
   });
 

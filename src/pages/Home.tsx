@@ -1,58 +1,36 @@
-import { WantedAdItem } from '@/components/WantedAdItem';
-import { IssueListItem } from '@/components/IssueListItem';
-import { Loader } from '@/components/Loader';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
-import { useNavigate } from 'react-router';
-import { styled } from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useDetectScroll } from '@/hooks/useDetectScroll';
+import { IssueListPageContainer } from '@/components/IssueListPageContainer';
+import { useContextNullCheck } from '@/hooks/useContextNullCheck';
 
 export const Home = () => {
-  const { data: pages, isLoading, isError } = useInfiniteScroll();
+  const [pageList, setPageList] = useState([1]);
+  const { isEnd, setIsEnd } = useDetectScroll();
 
-  const navigation = useNavigate();
+  const { state, dispatch } = useContextNullCheck();
+  const { addPage } = dispatch;
+
+  const {
+    hasNextPage,
+    isLoading: prevPageIsLoading,
+    error: prevPageError,
+  } = state;
+
+  useEffect(() => {
+    if (isEnd) {
+      setPageList((prev) => [...prev, prev[prev.length - 1] + 1]);
+      addPage();
+      if (!prevPageIsLoading && !prevPageError && hasNextPage) {
+        setIsEnd(false);
+      }
+    }
+  }, [isEnd]);
 
   return (
-    <IssueList>
-      {pages?.map(({ page, data }) => (
-        <>
-          {data.map((issue, idx) => (
-            <>
-              <ItemWrapper
-                key={issue.id}
-                onClick={() => navigation(`/issues/${issue.number}`)}
-              >
-                <IssueListItem issue={issue} />
-              </ItemWrapper>
-              {idx % 5 === 4 && <WantedAdItem />}
-            </>
-          ))}
-        </>
+    <div>
+      {pageList.map((page) => (
+        <IssueListPageContainer key={page} page={page} />
       ))}
-      {isLoading && <Loader />}
-    </IssueList>
+    </div>
   );
 };
-
-const ItemWrapper = styled.div`
-  cursor: pointer;
-  padding: 16px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.grey800};
-  }
-`;
-
-const IssueList = styled.div`
-  min-width: 300px;
-  max-width: 700px;
-  margin: 16px;
-  display: flex;
-  flex-direction: column;
-
-  & > div {
-    border-bottom: 1px solid;
-    border-color: ${({ theme }) => theme.color.grey700};
-  }
-  & > div:last-child {
-    border: none;
-  }
-`;

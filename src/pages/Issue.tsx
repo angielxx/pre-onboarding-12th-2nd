@@ -29,7 +29,7 @@ export const Issue = () => {
   }, []);
 
   return (
-    <PageWrapper>
+    <PageWrapper id="page wrapper">
       <HeaderContainer>
         <Avatar img={issue.author.avatar} />
         <IssueListItem issue={issue} />
@@ -42,9 +42,10 @@ export const Issue = () => {
 };
 
 const PageWrapper = styled.div`
-  min-width: 300px;
+  width: 60vw;
+  min-width: 400px;
   max-width: 700px;
-  padding: 16px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 

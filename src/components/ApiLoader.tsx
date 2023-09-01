@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
 
-export const Loader = () => {
+export const ApiLoader = () => {
   return (
-    <Container>
-      <p>loading...</p>
+    <Container id="api-loader">
+      <p>Loading...</p>
     </Container>
   );
 };
@@ -14,4 +14,5 @@ const Container = styled.div`
   align-items: center;
   padding: 32px;
   color: ${({ theme }) => theme.color.secondary};
+  height: 100px;
 `;
