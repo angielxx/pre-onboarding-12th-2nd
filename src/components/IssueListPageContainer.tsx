@@ -1,13 +1,13 @@
-import ApiErrorBoundary from '../ErrorBoundary/ApiErrorBoundary';
-import { ApiError } from '../ApiError';
-import { IssueList } from '../IssueList';
-import { IssuePageFetcher } from './IssuePageFetcher';
+import ApiErrorBoundary from '@/ErrorBoundary/ApiErrorBoundary';
+import { ApiError } from './ApiError';
+import { IssuePageFetcher } from '@/fetcher/IssuePageFetcher';
+import { IssueList } from './IssueList';
 
 interface Props {
   page: number;
 }
 
-export const IssueListPage = ({ page }: Props) => {
+export const IssueListPageContainer = ({ page }: Props) => {
   return (
     <ApiErrorBoundary
       fallback={({ error, reset }) => <ApiError error={error} />}

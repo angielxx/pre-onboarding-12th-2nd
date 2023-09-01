@@ -1,7 +1,7 @@
 import { getIssuesPerPage } from '@/apis/api';
 import { refineIssuesList } from '@/apis/service';
 import { IssueItem } from '@/types';
-import { ReactNode, createContext, useEffect, useRef, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface PageType {
   page: number;
@@ -11,15 +11,10 @@ interface PageType {
 interface StateType {
   data: PageType[];
   page: number;
-  isLoading: boolean;
-  error: Error | null;
 }
 
 interface DispatchType {
-  fetchCurrentPage: (
-    page: number
-  ) => (page: number) => { isLoading: boolean; error: Error | null };
-  getPageByNumber: (page: number) => PageType | undefined;
+  fetchCurrentPage: (page: number) => void;
   addPage: () => void;
 }
 
@@ -34,8 +29,8 @@ export const IssueListProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const state = { data, page, isLoading, error };
-  const dispatch = { fetchCurrentPage, getPageByNumber, addPage };
+  const state = { data, page };
+  const dispatch = { fetchCurrentPage, addPage };
 
   useEffect(() => {
     console.log('data', data);
@@ -43,37 +38,19 @@ export const IssueListProvider = ({ children }: { children: ReactNode }) => {
 
   function addPage() {
     setPage((prev) => prev + 1);
-    console.log('added page', page);
   }
 
   async function fetchCurrentPage(pageNum: number) {
-    if (isLoading || error) return { isLoading, error };
-    console.log('fetch cur', pageNum);
-    try {
-      setIsLoading(true);
+    const response = await getIssuesPerPage(pageNum);
+    const newPage = refineIssuesList(response);
 
-      const response = await getIssuesPerPage(pageNum);
-      const newPage = refineIssuesList(response);
-
-      setData((prev) => {
-        if (!prev.some((item) => item.page === pageNum)) {
-          return [...prev, { page: pageNum, data: newPage }];
-        } else {
-          return prev;
-        }
-      });
-      // page.current = page.current + 1;
-      setIsLoading(false);
-      return;
-    } catch (err) {
-      setError(err);
-    }
-  }
-
-  function getPageByNumber(page: number) {
-    const result = data.find((pageData) => pageData.page === page);
-    if (!result) return;
-    return result;
+    setData((prev) => {
+      if (!prev.some((item) => item.page === pageNum)) {
+        return [...prev, { page: pageNum, data: newPage }];
+      } else {
+        return prev;
+      }
+    });
   }
 
   return (

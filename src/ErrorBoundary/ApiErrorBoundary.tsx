@@ -30,12 +30,10 @@ class ApiErrorBoundary extends Component<Props, State> {
     this.state = initialState;
   }
 
-  // 에러 발생 이후 폴백 UI를 렌더링하는데 사용
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
   }
 
-  // 에러 로깅 : sentry etc.
   public static componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo);
   }
@@ -48,7 +46,6 @@ class ApiErrorBoundary extends Component<Props, State> {
     const { error } = this.state;
     const { fallback, children } = this.props;
 
-    // 폴백 UI
     if (error !== null) {
       console.log(error);
       return fallback({ error, reset: this.resetErrorBoundary });

@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Home, Issue, Root } from '@/pages';
 import { issueLoader } from '@/utils/loader';
 import { IssueListProvider } from '@/context/IssueListProvider';
-
 const router = createBrowserRouter([
   {
     element: <Root />,
