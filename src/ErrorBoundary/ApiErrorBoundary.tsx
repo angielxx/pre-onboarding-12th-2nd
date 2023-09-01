@@ -26,13 +26,17 @@ const initialState: State = {
   error: null,
 };
 
+interface ErrorType extends Error {
+  code: number;
+}
+
 class ApiErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
   }
 
-  public static getDerivedStateFromError(error: Error): State {
+  public static getDerivedStateFromError(error: ErrorType): State {
     if ([401, 403, 404].includes(error.code)) {
       return {
         shouldHandleError: false,
