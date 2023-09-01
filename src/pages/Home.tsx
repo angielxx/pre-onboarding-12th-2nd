@@ -8,6 +8,7 @@ export const Home = () => {
   const { isEnd, setIsEnd } = useDetectScroll();
 
   const { state, dispatch } = useContextNullCheck();
+  const { addPage } = dispatch;
 
   const {
     hasNextPage,
@@ -18,7 +19,8 @@ export const Home = () => {
   useEffect(() => {
     if (isEnd) {
       setPageList((prev) => [...prev, prev[prev.length - 1] + 1]);
-      if (!prevPageIsLoading && !prevPageError) {
+      addPage();
+      if (!prevPageIsLoading && !prevPageError && hasNextPage) {
         setIsEnd(false);
       }
     }

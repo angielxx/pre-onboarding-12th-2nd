@@ -1,3 +1,4 @@
+import { toScrollFit } from '@/utils/toScrollFit';
 import { useEffect, useState } from 'react';
 
 export const useDetectScroll = () => {
@@ -14,7 +15,9 @@ export const useDetectScroll = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', detectIsEnd);
+    window.addEventListener('scroll', toScrollFit(detectIsEnd), {
+      passive: true,
+    });
     return () => window.removeEventListener('scroll', detectIsEnd);
   }, []);
 

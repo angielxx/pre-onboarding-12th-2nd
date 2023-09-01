@@ -24,20 +24,18 @@ export const IssuePageFetcher = ({ children, page }: Props) => {
   const fetchThisPage = async () => {
     try {
       setThisPageIsLoading(true);
-      setPrevPageIsLoading(true);
       await fetchIssueByPage(page);
 
       // 에러 바운더리 테스트
       if (page === 3) {
         setThisPageError(Error('에러지롱'));
-        setPrevPageError(Error('에러지롱'));
         throw Error('에러지롱');
       }
     } catch (err) {
       setThisPageError(err);
+      setPrevPageError(err);
     } finally {
       setThisPageIsLoading(false);
-      setPrevPageIsLoading(false);
     }
   };
 
@@ -48,7 +46,7 @@ export const IssuePageFetcher = ({ children, page }: Props) => {
   }, []);
 
   if (thisPageError) {
-    throw Error(thisPageError.message);
+    throw thisPageError;
   }
 
   if (thisPageIsLoading) {

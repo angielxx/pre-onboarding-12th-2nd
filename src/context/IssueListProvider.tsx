@@ -60,23 +60,17 @@ export const IssueListProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function fetchIssueByPage(pageNum: number) {
-    try {
-      const data = await getIssuesPerPage(pageNum);
-      const newPage = refineIssuesList(data);
+    const data = await getIssuesPerPage(pageNum);
+    const newPage = refineIssuesList(data);
 
-      setIssueList((prev) => {
-        if (!prev.some((item) => item.page === pageNum)) {
-          return [...prev, { page: pageNum, data: newPage }];
-        } else {
-          return prev;
-        }
-      });
-      setHasNextPage(!!data.length);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
+    setIssueList((prev) => {
+      if (!prev.some((item) => item.page === pageNum)) {
+        return [...prev, { page: pageNum, data: newPage }];
+      } else {
+        return prev;
+      }
+    });
+    setHasNextPage(!!data.length);
   }
 
   return (

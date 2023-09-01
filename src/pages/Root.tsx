@@ -1,13 +1,19 @@
+import GlobalErrorBoundary from '@/ErrorBoundary/GlobalErrorBoundary';
 import { Header } from '@/components/Header';
 import { Outlet } from 'react-router';
 import { styled } from 'styled-components';
+import { ErrorPage } from './ErrorPage';
 
 export const Root = () => {
   return (
-    <RootContainer>
-      <Header />
-      <Outlet />
-    </RootContainer>
+    <GlobalErrorBoundary
+      fallback={({ error, reset }) => <ErrorPage error={error} />}
+    >
+      <RootContainer>
+        <Header />
+        <Outlet />
+      </RootContainer>
+    </GlobalErrorBoundary>
   );
 };
 
