@@ -10,7 +10,9 @@ interface Props {
 export const IssueListPageContainer = ({ page }: Props) => {
   return (
     <ApiErrorBoundary
-      fallback={({ error, reset }) => <ApiError error={error} />}
+      fallback={({ error, reset }) => (
+        <ApiError error={error} resetErrorBoundary={reset} />
+      )}
     >
       <IssuePageFetcher page={page}>
         <IssueList page={page} />
